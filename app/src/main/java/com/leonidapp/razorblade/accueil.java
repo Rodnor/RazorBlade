@@ -1,8 +1,7 @@
 package com.leonidapp.razorblade;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class accueil extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout mDrawerLayout;
+    ExpandableListAdapter mMenuAdapter;
+    ExpandableListView expandableList;
+    List<ExpandedMenuModel> listDataHeader;
+    HashMap<ExpandedMenuModel, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +33,36 @@ public class accueil extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final ActionBar ab = getSupportActionBar();
+        /* to set the menu icon image*/
+        ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_add);
+        ab.setDisplayHomeAsUpEnabled(true);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        expandableList = (ExpandableListView) findViewById(R.id.navigationmenu);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+
+        prepareListData();
+        mMenuAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, expandableList);
+
+        // setting list adapter
+        expandableList.setAdapter(mMenuAdapter);
+
+        expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                //Log.d("DEBUG", "submenu item clicked");
+                return false;
+            }
+        });
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                //Log.d("DEBUG", "heading clicked");
+                return false;
             }
         });
 
@@ -37,9 +71,6 @@ public class accueil extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -52,50 +83,101 @@ public class accueil extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.accueil, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.tarifs) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.salons) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.shop) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.reseaux) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.contact) {
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+    private void prepareListData() {
+        listDataHeader = new ArrayList<ExpandedMenuModel>();
+        listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
+
+        ExpandedMenuModel item1 = new ExpandedMenuModel();
+        item1.setIconName(getResources().getString(R.string.tarifs));
+        //item1.setIconImg(android.R.drawable.ic_delete);
+        // Adding data header
+        listDataHeader.add(item1);
+
+        ExpandedMenuModel item2 = new ExpandedMenuModel();
+        item2.setIconName(getResources().getString(R.string.salons));
+        //item2.setIconImg(android.R.drawable.ic_delete);
+        listDataHeader.add(item2);
+
+        ExpandedMenuModel item3 = new ExpandedMenuModel();
+        item3.setIconName(getResources().getString(R.string.shop));
+        //item3.setIconImg(android.R.drawable.ic_delete);
+        listDataHeader.add(item3);
+
+        ExpandedMenuModel item4 = new ExpandedMenuModel();
+        item4.setIconName(getResources().getString(R.string.reseaux));
+        //item3.setIconImg(android.R.drawable.ic_delete);
+        listDataHeader.add(item4);
+
+        ExpandedMenuModel item5 = new ExpandedMenuModel();
+        item5.setIconName(getResources().getString(R.string.contact));
+        //item3.setIconImg(android.R.drawable.ic_delete);
+        listDataHeader.add(item5);
+
+        // Adding child data
+        List<String> empty = new ArrayList<String>();
+        List<String> heading1 = new ArrayList<String>();
+        heading1.add("Facebook");
+        heading1.add("Twitter");
+        heading1.add("Instagram");
+        heading1.add("Youtube");
+        heading1.add("Pinterest");
+
+        listDataChild.put(listDataHeader.get(0), empty);
+        listDataChild.put(listDataHeader.get(1), empty);
+        listDataChild.put(listDataHeader.get(2), empty);
+        listDataChild.put(listDataHeader.get(3), heading1);
+        listDataChild.put(listDataHeader.get(4), empty);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        //revision: this don't works, use setOnChildClickListener() and setOnGroupClickListener() above instead
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 }

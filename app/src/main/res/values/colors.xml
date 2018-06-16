@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="appBarColor">#230f0f</color>
+    <color name="navHeaderColor">#1f2326</color>
+    <color name="policeColor">#bbae98</color>
+    <color name="buttonColor">#806D777B</color>
+    <color name="textButtonColor">#FFFFFF</color>
 </resources>

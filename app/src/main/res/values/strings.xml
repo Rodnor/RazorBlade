@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name">RazorBlade</string>
+    <string name="app_name"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="tarifs">Tarifs</string>
+    <string name="salons">Nos Salons</string>
+    <string name="shop">Shop</string>
+    <string name="reseaux">Nos Réseaux Sociaux</string>
+    <string name="contact">Contactez-Nous</string>
 </resources>
