@@ -26,7 +26,7 @@
         android:background="@drawable/radius_button"
         android:text="Rejoindre la file\nd'attente"
         android:textColor="@color/textButtonColor"
-        android:translationY="-20dp" />
+        android:translationY="-40dp" />
 
     <Button
         android:id="@+id/nearest_shop_button"
@@ -39,6 +39,6 @@
         android:background="@drawable/radius_button"
         android:text="Salon le plus\nproche"
         android:textColor="@color/textButtonColor"
-        android:translationY="-20dp" />
+        android:translationY="-40dp" />
 
 </RelativeLayout>
