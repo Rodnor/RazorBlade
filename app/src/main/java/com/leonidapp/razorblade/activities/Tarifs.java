@@ -1,36 +1,49 @@
-package com.leonidapp.razorblade;
+package com.leonidapp.razorblade.activities;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+
+import com.leonidapp.razorblade.R;
+import com.leonidapp.razorblade.adapters.ExpandableListAdapter;
+import com.leonidapp.razorblade.models.ExpandedMenuModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class accueil extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Tarifs extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     ExpandableListAdapter mMenuAdapter;
     ExpandableListView expandableList;
     List<ExpandedMenuModel> listDataHeader;
     HashMap<ExpandedMenuModel, List<String>> listDataChild;
+    Context mainContext = this;
 
+    /**
+     * Méthode appelée au lancement de l'activité.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accueil);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.tarifs_layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar ab = getSupportActionBar();
@@ -54,14 +67,15 @@ public class accueil extends AppCompatActivity
         expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                //Log.d("DEBUG", "submenu item clicked");
+                Log.d("DEBUG", "submenu item clicked");
                 return false;
             }
         });
         expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                //Log.d("DEBUG", "heading clicked");
+                if(i == 1){
+                }
                 return false;
             }
         });
@@ -71,6 +85,15 @@ public class accueil extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        // POUR TEST, A SUPPRIMER ENSUITE
+        Button testButtonTarif = (Button) findViewById(R.id.testButtonTarif);
+        testButtonTarif.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG", "Coucou");
+            }
+        });
     }
 
     @Override
@@ -82,29 +105,6 @@ public class accueil extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.tarifs) {
-            // Handle the camera action
-        } else if (id == R.id.salons) {
-
-        } else if (id == R.id.shop) {
-
-        } else if (id == R.id.reseaux) {
-
-        } else if (id == R.id.contact) {
-
-        }
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
 
     private void prepareListData() {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
