@@ -16,7 +16,7 @@ tools:openDrawer="start">
         app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
+            android:id="@+id/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/navHeaderColor"
