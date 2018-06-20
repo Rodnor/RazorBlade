@@ -1,14 +1,16 @@
-package com.leonidapp.razorblade;
+package com.leonidapp.razorblade.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import com.leonidapp.razorblade.models.ExpandedMenuModel;
+import com.leonidapp.razorblade.R;
 
 import java.util.HashMap;
 import java.util.List;

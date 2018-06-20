@@ -1,4 +1,4 @@
-package com.leonidapp.razorblade;
+package com.leonidapp.razorblade.models;
 
 public class ExpandedMenuModel {
     String iconName = "";
